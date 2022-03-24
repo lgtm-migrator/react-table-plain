@@ -13,6 +13,7 @@ interface ITableElements {
   bodyElement?: React.ReactNode;
   footerElement?: React.ReactNode;
   renderSortLabel?: (colDef: IColDef, desc: boolean) => React.ReactNode;
+  renderSortHint?: (colDef: IColDef) => React.ReactNode;
 }
 
 export enum RowSelectionType {

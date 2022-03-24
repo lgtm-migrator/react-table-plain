@@ -324,6 +324,7 @@ export class TablePlain extends React.Component<TableProps, IState> {
     );
   }
 
+
   renderHeaderCell(
     colDef: IColDef,
     idx: number,
@@ -332,6 +333,11 @@ export class TablePlain extends React.Component<TableProps, IState> {
   ) {
     const HeaderCell: any = this.headerCellElement;
     const ps = { ...props, ...this.alignToCss(colDef.align) };
+    const showSortHint = colDef.sortable && this.props.orderBy !== colDef.prop && this.props.renderSortHint != null;
+    const showSortLabel = this.props.orderBy &&
+        this.props.orderBy === colDef.prop &&
+        this.props.renderSortLabel != null;
+
     return (
       <HeaderCell
         key={idx}
@@ -343,10 +349,9 @@ export class TablePlain extends React.Component<TableProps, IState> {
         }
       >
         {colDef.header}
-        {this.props.orderBy &&
-          this.props.orderBy === colDef.prop &&
-          this.props.renderSortLabel &&
-          this.props.renderSortLabel(colDef, this.props.sort === "desc")}
+        {showSortHint && this.props.renderSortHint!(colDef)}
+        {showSortLabel &&
+          this.props.renderSortLabel!(colDef, this.props.sort === "desc")}
       </HeaderCell>
     );
   }
